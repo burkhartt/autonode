@@ -1,0 +1,16 @@
+{
+  "name": "autonode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "continuation-local-storage": "^3.1.7",
+    "express": "^4.14.0",
+    "winston": "^2.2.0"
+  }
+}
