@@ -1,5 +1,5 @@
 'use strict';
-let container = require('./container');
+let container = require('./lib/container');
 
 class UserRepository {
     getCurrentUser() {
