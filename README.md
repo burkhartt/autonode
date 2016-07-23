@@ -24,8 +24,19 @@ autonode.LifetimeScope.SingleInstance
 let container = autonode.Container;
 
 let containerBuilder = new ContainerBuilder();
+containerBuilder.register('logger', () => new Logger(), autonode.LifetimeScope.InstancePerRequest);
 containerBuilder.register('userRepository', () => new UserRepository(), autonode.LifetimeScope.InstancePerRequest);
 container.load(containerBuilder);
+````
+
+````Javascript
+let container = require('./lib/container');
+
+class UserRepository {
+  constructor() {
+    this.logger = container.resolve('logger');
+  }
+}
 ````
 
 ### Instance referencing another registration
