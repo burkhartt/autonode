@@ -4,6 +4,11 @@ Dependency injection for NodeJS inspired by Autofac (C# DI library)
 
 ## API
 
+Installation
+````Javascript
+npm install auto-node
+````
+
 Registration
 
 ````Javascript
@@ -15,6 +20,7 @@ Lifetime Scopes
 ````
 autonode.LifetimeScope.InstancePerRequest
 autonode.LifetimeScope.SingleInstance
+autonode.LifetimeScope.None
 ````
 
 ## Example Usage
