@@ -2,14 +2,17 @@
 let container = require('./lib/container');
 
 class UserRepository {
+    constructor(logger, currentUser) {
+        this.logger = logger;
+        this.currentUser = currentUser;
+    }
+
     getCurrentUser() {
-        let logger = container.resolve('logger');
-        let userId = container.resolve('currentUser');
-        if (userId === '3') {
-            logger.info('Found Tim');
+        if (this.currentUser === '3') {
+            this.logger.info('Found Tim');
             return { name: 'Tim' };
         }
-        logger.info('Found Bob');
+        this.logger.info('Found Bob');
         return { name: 'Bob' };
     }
 }

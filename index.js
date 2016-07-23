@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     let containerBuilder = new ContainerBuilder();
-    containerBuilder.register('userRepository', () => new UserRepository(), autonode.LifetimeScope.Singleton);
+    containerBuilder.register('userRepository', UserRepository, autonode.LifetimeScope.InstancePerRequest);
     containerBuilder.register('currentUser', (c) => c.resolve('request').query.userId, autonode.LifetimeScope.InstancePerRequest);
     containerBuilder.register('request', () => req, autonode.LifetimeScope.InstancePerRequest);
     containerBuilder.register('logger', (c) => {
@@ -36,6 +36,10 @@ app.use((req, res, next) => {
         return logger;
     }, autonode.LifetimeScope.InstancePerRequest)
     container.load(containerBuilder);
+
+    res.on('finish', () => {
+        container.requestFinished();
+    });
     next();
 });
 
@@ -43,11 +47,6 @@ app.get('/', (req, res, next) => {
     let userRepo = container.resolve('userRepository');
     let user = userRepo.getCurrentUser();
     res.send(user.name);
-    next();
-});
-
-app.use((req, res, next) => {
-    container.requestFinished();
     next();
 });
 
