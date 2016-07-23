@@ -1,12 +1,12 @@
 {
   "name": "autonode",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.3",
+  "description": "Dependency injection module inspired by C#'s Autofac",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Tim Burkhart <tburkhart@wanderu.com> (https://github.com/burkhartt/autonode)",
   "license": "ISC",
   "dependencies": {
     "continuation-local-storage": "^3.1.7",
