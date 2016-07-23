@@ -19,9 +19,13 @@ autonode.LifetimeScope.SingleInstance
 
 ## Example Usage
 
-### Simple class registration
+### Basic Usage
 ````Javascript
+let container = autonode.Container;
+
+let containerBuilder = new ContainerBuilder();
 containerBuilder.register('userRepository', () => new UserRepository(), autonode.LifetimeScope.InstancePerRequest);
+container.load(containerBuilder);
 ````
 
 ### Instance referencing another registration
