@@ -2,7 +2,22 @@
 
 Dependency injection for NodeJS inspired by Autofac (C# DI library)
 
-## Defining Dependencies
+## API
+
+Registration
+
+````Javascript
+containerBuilder.register(key, instanceFunction, lifetimeScope);
+containerBuilder.register(key, classType, lifetimeScope);
+````
+
+Lifetime Scopes
+````
+autonode.LifetimeScope.InstancePerRequest
+autonode.LifetimeScope.SingleInstance
+````
+
+## Example Usage
 
 ### Simple class registration
 ````Javascript
