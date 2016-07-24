@@ -1,6 +1,6 @@
 {
   "name": "auto-node",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Dependency injection module inspired by C#'s Autofac",
   "main": "lib/index.js",
   "scripts": {
