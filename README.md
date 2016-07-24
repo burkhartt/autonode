@@ -17,7 +17,7 @@ let app = express();
 app.use(autonode.Middleware);
 
 app.use((req, res, next) => {
-  let containerBuilder = autonode.ContainerBuilder;
+  let containerBuilder = new autonode.ContainerBuilder();
   containerBuilder.registerType('UserRepository', UserRepository, autonode.LifetimeScope.InstancePerRequest);
   autonode.Container.load(containerBuilder);
 }
