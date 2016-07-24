@@ -2,9 +2,8 @@
 let express = require('express');
 let winston = require('winston');
 let UserRepository = require('./userRepository');
-let autonode = require('./lib');
+let autonode = require('../lib');
 let ContainerBuilder = autonode.ContainerBuilder;
-let container = autonode.Container;
 
 var app = express();
 
@@ -29,13 +28,13 @@ app.use((req, res, next) => {
         });
         return logger;
     }, autonode.LifetimeScope.InstancePerRequest)
-    container.load(containerBuilder);
+    autonode.Container.load(containerBuilder);
 
     next();
 });
 
 app.get('/', (req, res, next) => {
-    let userRepo = container.resolve('userRepository');
+    let userRepo = autonode.Container.resolve('userRepository');
     let user = userRepo.getCurrentUser();
     res.send(user.name);
     next();

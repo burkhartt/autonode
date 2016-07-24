@@ -1,5 +1,5 @@
 'use strict';
-let container = require('./lib/container');
+let container = require('../lib/container');
 
 class UserRepository {
     constructor(logger, currentUser) {
