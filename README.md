@@ -2,18 +2,46 @@
 
 Dependency injection for NodeJS inspired by Autofac (C# DI library)
 
-## API
+## Getting Started
 
 Installation
 ````Javascript
 npm install auto-node
 ````
 
+Setup
+````Javascript
+let autonode = require('auto-node');
+
+let app = express();
+app.use(autonode.Middleware);
+
+app.use((req, res, next) => {
+  let containerBuilder = new autonode.ContainerBuilder();
+  containerBuilder.registerType('UserRepository', UserRepository, autonode.LifetimeScope.InstancePerRequest);
+  autonode.Container.load(containerBuilder);
+}
+````
+
+Basic Usage
+
+````Javascript
+let container = require('auto-node').Container;
+
+class UserRepository {
+  constructor() {
+    this.logger = container.resolve('logger');
+  }
+}
+````
+
+## API
+
 Registration
 
 ````Javascript
 containerBuilder.register(key, instanceFunction, lifetimeScope);
-containerBuilder.register(key, classType, lifetimeScope);
+containerBuilder.registerType(key, classType, lifetimeScope);
 ````
 
 Lifetime Scopes
@@ -23,27 +51,7 @@ autonode.LifetimeScope.SingleInstance
 autonode.LifetimeScope.None
 ````
 
-## Example Usage
-
-### Basic Usage
-````Javascript
-let container = autonode.Container;
-
-let containerBuilder = new ContainerBuilder();
-containerBuilder.register('logger', () => new Logger(), autonode.LifetimeScope.InstancePerRequest);
-containerBuilder.register('userRepository', () => new UserRepository(), autonode.LifetimeScope.InstancePerRequest);
-container.load(containerBuilder);
-````
-
-````Javascript
-let container = require('./lib/container');
-
-class UserRepository {
-  constructor() {
-    this.logger = container.resolve('logger');
-  }
-}
-````
+## Examples
 
 ### Instance referencing another registration
 ````Javascript
@@ -53,8 +61,8 @@ containerBuilder.register('tripRepository', (c) => new TripRepository(c.resolve(
 
 ### Automatic constructor injection
 ````Javascript
-containerBuilder.register('lineItemRepository', LineItemRepository, autonode.LifetimeScope.InstancePerRequest);
-conatienrBuilder.register('tripRepository', TripRepository, autonode.LifetimeScope.InstancePerRequest);
+containerBuilder.registerType('lineItemRepository', LineItemRepository, autonode.LifetimeScope.InstancePerRequest);
+conatienrBuilder.registerType('tripRepository', TripRepository, autonode.LifetimeScope.InstancePerRequest);
 
 class TripRepository {
   constructor(lineItemRepository) { // parameter name must match registration key
