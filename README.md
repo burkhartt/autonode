@@ -23,6 +23,18 @@ app.use((req, res, next) => {
 }
 ````
 
+Basic Usage
+
+````Javascript
+let container = require('./lib/container');
+
+class UserRepository {
+  constructor() {
+    this.logger = container.resolve('logger');
+  }
+}
+````
+
 ## API
 
 Registration
@@ -39,27 +51,7 @@ autonode.LifetimeScope.SingleInstance
 autonode.LifetimeScope.None
 ````
 
-## Example Usage
-
-### Basic Usage
-````Javascript
-let container = autonode.Container;
-
-let containerBuilder = new ContainerBuilder();
-containerBuilder.register('logger', () => new Logger(), autonode.LifetimeScope.InstancePerRequest);
-containerBuilder.register('userRepository', () => new UserRepository(), autonode.LifetimeScope.InstancePerRequest);
-container.load(containerBuilder);
-````
-
-````Javascript
-let container = require('./lib/container');
-
-class UserRepository {
-  constructor() {
-    this.logger = container.resolve('logger');
-  }
-}
-````
+## Examples
 
 ### Instance referencing another registration
 ````Javascript
