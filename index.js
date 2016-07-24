@@ -1,7 +1,5 @@
 'use strict';
 let express = require('express');
-let cls = require('continuation-local-storage');
-let ns = cls.createNamespace('request');
 let winston = require('winston');
 let UserRepository = require('./userRepository');
 let autonode = require('./lib');
@@ -9,15 +7,11 @@ let ContainerBuilder = autonode.ContainerBuilder;
 let container = autonode.Container;
 
 var app = express();
-app.use((req, res, next) => {
-    ns.bindEmitter(req);
-    ns.bindEmitter(res);
-    ns.run(() => next());
-});
 
+app.use(autonode.Middleware);
 app.use((req, res, next) => {
     let containerBuilder = new ContainerBuilder();
-    containerBuilder.register('userRepository', UserRepository, autonode.LifetimeScope.InstancePerRequest);
+    containerBuilder.registerType('userRepository', UserRepository, autonode.LifetimeScope.InstancePerRequest);
     containerBuilder.register('currentUser', (c) => c.resolve('request').query.userId, autonode.LifetimeScope.InstancePerRequest);
     containerBuilder.register('request', () => req, autonode.LifetimeScope.InstancePerRequest);
     containerBuilder.register('logger', (c) => {
@@ -37,9 +31,6 @@ app.use((req, res, next) => {
     }, autonode.LifetimeScope.InstancePerRequest)
     container.load(containerBuilder);
 
-    res.on('finish', () => {
-        container.requestFinished();
-    });
     next();
 });
 

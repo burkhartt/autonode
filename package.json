@@ -12,7 +12,6 @@
     "continuation-local-storage": "^3.1.7",
     "express": "^4.14.0",
     "get-parameter-names": "^0.3.0",
-    "is-class": "0.0.4",
     "winston": "^2.2.0",
     "mocha": "^2.0.0",
     "chai": "^3.0.0"

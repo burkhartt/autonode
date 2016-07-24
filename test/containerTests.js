@@ -2,6 +2,7 @@
 const assert = require('chai').assert;
 const autonode = require('../lib');
 const ContainerBuilder = autonode.ContainerBuilder;
+const exceptions = autonode.Exceptions;
 const container = autonode.Container;
 const NUMBER_OF_INSTANCES = 10;
 
@@ -39,6 +40,24 @@ describe('Container', () => {
                 container.resolve('myType');
             }
             assert.equal(instanceCount, 1);
+        });
+    });
+
+    describe('When a circular dependency exists', () => {
+        it('Should throw a CircularDependencyException', () => {
+            let containerBuilder = new ContainerBuilder();
+
+            containerBuilder.register('type1', (c) => c.resolve('type2'));
+            containerBuilder.register('type2', (c) => c.resolve('type1'));
+            container.load(containerBuilder);
+
+            try {
+                container.resolve('type1');
+            } catch (e) {
+                assert.equal(e instanceof exceptions.CircularDependencyException, true);
+                return;
+            }
+            assert.fail();
         });
     });
 });
