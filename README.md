@@ -2,18 +2,34 @@
 
 Dependency injection for NodeJS inspired by Autofac (C# DI library)
 
-## API
+## Getting Started
 
 Installation
 ````Javascript
 npm install auto-node
 ````
 
+Setup
+````Javascript
+let autonode = require('auto-node');
+
+let app = express();
+app.use(autonode.Middleware);
+
+app.use((req, res, next) => {
+  let containerBuilder = autonode.ContainerBuilder;
+  containerBuilder.registerType('UserRepository', UserRepository, autonode.LifetimeScope.InstancePerRequest);
+  autonode.Container.load(containerBuilder);
+}
+````
+
+## API
+
 Registration
 
 ````Javascript
 containerBuilder.register(key, instanceFunction, lifetimeScope);
-containerBuilder.register(key, classType, lifetimeScope);
+containerBuilder.registerType(key, classType, lifetimeScope);
 ````
 
 Lifetime Scopes
@@ -53,8 +69,8 @@ containerBuilder.register('tripRepository', (c) => new TripRepository(c.resolve(
 
 ### Automatic constructor injection
 ````Javascript
-containerBuilder.register('lineItemRepository', LineItemRepository, autonode.LifetimeScope.InstancePerRequest);
-conatienrBuilder.register('tripRepository', TripRepository, autonode.LifetimeScope.InstancePerRequest);
+containerBuilder.registerType('lineItemRepository', LineItemRepository, autonode.LifetimeScope.InstancePerRequest);
+conatienrBuilder.registerType('tripRepository', TripRepository, autonode.LifetimeScope.InstancePerRequest);
 
 class TripRepository {
   constructor(lineItemRepository) { // parameter name must match registration key
