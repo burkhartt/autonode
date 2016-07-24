@@ -1,6 +1,6 @@
 {
   "name": "auto-node",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Dependency injection module inspired by C#'s Autofac",
   "main": "lib/index.js",
   "scripts": {
@@ -12,8 +12,10 @@
     "continuation-local-storage": "^3.1.7",
     "express": "^4.14.0",
     "get-parameter-names": "^0.3.0",
-    "winston": "^2.2.0",
-    "mocha": "^2.0.0",
-    "chai": "^3.0.0"
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
   }
 }
