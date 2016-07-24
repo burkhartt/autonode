@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 Basic Usage
 
 ````Javascript
-let container = require('./lib/container');
+let container = require('auto-node').Container;
 
 class UserRepository {
   constructor() {
