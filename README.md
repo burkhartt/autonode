@@ -1,5 +1,11 @@
 # Autonode
 
+## Disclaimer ##
+
+This library is no longer being maintained. It is based upon the library continuation-local-storage, which does not work with promises. So I can't recommend using this anymore :(
+
+---
+
 Dependency injection for NodeJS inspired by Autofac (C# DI library)
 
 ## Getting Started
